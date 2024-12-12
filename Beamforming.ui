@@ -38,7 +38,112 @@ background-color: rgb(42, 42, 42);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_9">
+    <item row="1" column="5">
+     <layout class="QVBoxLayout" name="beam_layout">
+      <item>
+       <layout class="QVBoxLayout" name="beamforming_layout">
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:white;
+font-size: 14px;
+font-weight:600;
+border-color: transparent;</string>
+          </property>
+          <property name="text">
+           <string>BeamForming Map:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>700</width>
+            <height>300</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(24, 24, 24);</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="beamProfile_layout">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:white;
+font-size: 14px;
+font-weight:600;
+border-color: transparent;</string>
+          </property>
+          <property name="text">
+           <string>Beam Profile:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="beamforming_map_2" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>700</width>
+            <height>300</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(24, 24, 24);</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item row="0" column="5">
+     <spacer name="verticalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="7">
      <spacer name="horizontalSpacer_3">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -51,7 +156,20 @@ background-color: rgb(42, 42, 42);</string>
       </property>
      </spacer>
     </item>
-    <item row="0" column="2">
+    <item row="1" column="3">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="2">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <spacer name="verticalSpacer_9">
@@ -213,7 +331,7 @@ border-color: transparent;</string>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="mode_layout">
           <item>
            <widget class="QRadioButton" name="transmitter_radioButton">
             <property name="maximumSize">
@@ -288,7 +406,7 @@ QRadioButton::indicator::checked {
 </string>
             </property>
             <property name="text">
-             <string>Reciever</string>
+             <string>Receiver</string>
             </property>
            </widget>
           </item>
@@ -427,6 +545,12 @@ border-color: transparent;</string>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -448,7 +572,7 @@ border-color: transparent;</string>
        <widget class="QComboBox" name="arraygeometry">
         <property name="minimumSize">
          <size>
-          <width>0</width>
+          <width>280</width>
           <height>30</height>
          </size>
         </property>
@@ -506,7 +630,7 @@ border-color: transparent;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_of_roc">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -520,7 +644,7 @@ font-weight:600;
 border-color: transparent;</string>
         </property>
         <property name="text">
-         <string>Radius of Curvature (For Curved Array):</string>
+         <string>Distance:</string>
         </property>
        </widget>
       </item>
@@ -562,7 +686,7 @@ QSlider::handle:horizontal {
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_16">
+         <widget class="QLabel" name="roc_label">
           <property name="styleSheet">
            <string notr="true">color:white;
 font-size: 10px;
@@ -583,7 +707,7 @@ font-weight:600;
 border-color: transparent;</string>
           </property>
           <property name="text">
-           <string>mm</string>
+           <string>m</string>
           </property>
          </widget>
         </item>
@@ -688,7 +812,7 @@ QSlider::handle:horizontal {
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_18">
+         <widget class="QLabel" name="frequency_label">
           <property name="styleSheet">
            <string notr="true">color:white;
 font-size: 10px;
@@ -701,7 +825,7 @@ border-color: transparent;</string>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_19">
+         <widget class="QLabel" name="frequency_unit">
           <property name="styleSheet">
            <string notr="true">color:white;
 font-size: 10px;
@@ -709,7 +833,7 @@ font-weight:600;
 border-color: transparent;</string>
           </property>
           <property name="text">
-           <string>MHz</string>
+           <string>GHz</string>
           </property>
          </widget>
         </item>
@@ -785,7 +909,7 @@ QSlider::handle:horizontal {
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_20">
+         <widget class="QLabel" name="shift_label">
           <property name="styleSheet">
            <string notr="true">color:white;
 font-size: 10px;
@@ -827,96 +951,18 @@ border-color: transparent;</string>
       </item>
      </layout>
     </item>
-    <item row="0" column="3">
-     <spacer name="horizontalSpacer">
+    <item row="2" column="5">
+     <spacer name="verticalSpacer_12">
       <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="4">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
-font-weight:600;
-border-color: transparent;</string>
-        </property>
-        <property name="text">
-         <string>BeamForming Map:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="beamforming_map" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>700</width>
-          <height>300</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(24, 24, 24);</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_9">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
-font-weight:600;
-border-color: transparent;</string>
-        </property>
-        <property name="text">
-         <string>Beam Profile:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="beam_profile" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>700</width>
-          <height>300</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(24, 24, 24);</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
+        <width>20</width>
+        <height>10</height>
        </size>
       </property>
      </spacer>
