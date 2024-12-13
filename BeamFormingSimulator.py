@@ -224,21 +224,19 @@ class BeamformingVisualizer(QMainWindow):
         array_factor_db = 20 * np.log10(array_factor / np.max(array_factor))
         label = "Array Factor (Transmitting)" if self.mode == "Transmitting" else "Array Factor (Receiving)"
 
-        # Set dark theme for the plot
-        ax.set_facecolor("#222222")  # Dark gray background for axes
-        self.beamprofile_figure.patch.set_facecolor("#222222")  # Match figure background
-        ax.tick_params(colors="white")  # White tick labels
-        ax.spines[:].set_color("white")  # White spines
+        # Set light theme for the plot
+        ax.set_facecolor("#FFFFFF")  # White background for axes
+        self.beamprofile_figure.patch.set_facecolor("#FFFFFF")  # Match figure background
+        ax.tick_params(colors="black")  # Black tick labels
+        ax.spines[:].set_color("black")  # Black spines
 
         # Plot the array factor
-        ax.plot(np.radians(self.theta), array_factor_db, label=label, color="red", linewidth=1.5)
-
+        ax.plot(np.radians(self.theta), array_factor_db, label=label, color="blue", linewidth=1.5)
 
         # Add legend with adjusted colors
-        legend = ax.legend(loc = 'upper right', facecolor="#333333", edgecolor="white")
+        legend = ax.legend(loc='upper right', facecolor="#EEEEEE", edgecolor="black")
         for text in legend.get_texts():
-            text.set_color("white")
-
+            text.set_color("black")
 
     def plot_interference_map(self, ax):
         # Generate grid for interference map
@@ -265,11 +263,11 @@ class BeamformingVisualizer(QMainWindow):
         interference_map = np.abs(field_map) ** 2
         interference_map /= np.max(interference_map)  # Normalize
 
-        # Set dark theme
-        ax.set_facecolor("#222222")  # Dark gray background for axes
-        self.beamforming_figure.patch.set_facecolor("#222222")  # Match figure background
-        ax.tick_params(colors="white")  # White tick labels
-        ax.spines[:].set_color("white")  # White spines
+        # Set light theme
+        ax.set_facecolor("#FFFFFF")  # White background for axes
+        self.beamforming_figure.patch.set_facecolor("#FFFFFF")  # Match figure background
+        ax.tick_params(colors="black")  # Black tick labels
+        ax.spines[:].set_color("black")  # Black spines
 
         # Plot the interference map
         im = ax.imshow(interference_map, extent=[-10, 10, -10, 10], origin="lower",
@@ -277,22 +275,22 @@ class BeamformingVisualizer(QMainWindow):
 
         # Add colorbar with adjusted style
         cbar = self.beamforming_figure.colorbar(im, ax=ax)
-        cbar.ax.yaxis.set_tick_params(color="white")
-        cbar.outline.set_edgecolor("white")
-        cbar.set_label("Interference Intensity", color="white")
+        cbar.ax.yaxis.set_tick_params(color="black")
+        cbar.outline.set_edgecolor("black")
+        cbar.set_label("Interference Intensity", color="black")
 
         # Set axis labels
-        ax.set_xlabel("x (meters)", color="white")
-        ax.set_ylabel("y (meters)", color="white")
+        ax.set_xlabel("x (meters)", color="black")
+        ax.set_ylabel("y (meters)", color="black")
 
         # Plot transmitter positions
         ax.scatter(transmitter_positions[:, 0], transmitter_positions[:, 1],
-                   c='cyan', marker='o', label="Transmitters")
+                   c='blue', marker='o', label="Transmitters")  # Use blue for transmitters in light mode
 
         # Add legend with adjusted text color
-        legend = ax.legend(facecolor="#333333", edgecolor="white")
+        legend = ax.legend(facecolor="#EEEEEE", edgecolor="black")
         for text in legend.get_texts():
-            text.set_color("white")
+            text.set_color("black")
 
     def plot_receiving(self, ax):
 

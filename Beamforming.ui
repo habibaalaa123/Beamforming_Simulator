@@ -28,7 +28,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">
-background-color: rgb(42, 42, 42);</string>
+background-color: #F2F5F1;</string>
   </property>
   <property name="iconSize">
    <size>
@@ -51,8 +51,8 @@ background-color: rgb(42, 42, 42);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 14px;
+           <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -70,7 +70,7 @@ border-color: transparent;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(24, 24, 24);</string>
+           <string notr="true">background-color: white;</string>
           </property>
          </widget>
         </item>
@@ -87,8 +87,8 @@ border-color: transparent;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 14px;
+           <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -106,7 +106,7 @@ border-color: transparent;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(24, 24, 24);</string>
+           <string notr="true">background-color: white;</string>
           </property>
          </widget>
         </item>
@@ -201,7 +201,7 @@ border-color: transparent;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(24, 24, 24);
+           <string notr="true">background-color: #d84b3d;
 color: rgb(255, 255, 255);
 border: 1px;
 border-radius: 15px;
@@ -237,7 +237,7 @@ font-weight:800;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(24, 24, 24);
+           <string notr="true">background-color: #d84b3d;
 color: rgb(255, 255, 255);
 border: 1px;
 border-radius: 15px;
@@ -273,7 +273,7 @@ font-weight:800;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(24, 24, 24);
+           <string notr="true">background-color: #d84b3d;
 color: rgb(255, 255, 255);
 border: 1px;
 border-radius: 15px;
@@ -320,8 +320,8 @@ font-weight:800;</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 14px;
+           <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -343,7 +343,7 @@ border-color: transparent;</string>
             <property name="styleSheet">
              <string notr="true">QRadioButton {
     font: bold 14px;           /* Font size and weight */
-    color: #cc3c3c;           /* Text color */
+    color: #d84b3d;           /* Text color */
     spacing: 8px;            /* Space between the button and text */
 	border: transparent;
 }
@@ -354,14 +354,14 @@ QRadioButton::indicator {
 }
 
 QRadioButton::indicator::unchecked {
-    border: 2px solid #cc3c3c; /* Border of the unchecked circle */
+    border: 2px solid #d84b3d; /* Border of the unchecked circle */
     background-color: white;
     border-radius: 7px;      /* Make it a perfect circle */
 }
 
 QRadioButton::indicator::checked {
-    border: 2px solid  #cc3c3c;
-    background-color:  #cc3c3c;
+    border: 2px solid  #d84b3d;
+    background-color:  #d84b3d;
     border-radius: 7px;
 }
 </string>
@@ -382,7 +382,7 @@ QRadioButton::indicator::checked {
             <property name="styleSheet">
              <string notr="true">QRadioButton {
     font: bold 14px;           /* Font size and weight */
-    color: #cc3c3c;           /* Text color */
+    color: #d84b3d;;           /* Text color */
     spacing: 8px;            /* Space between the button and text */
 	border: transparent;
 }
@@ -393,14 +393,14 @@ QRadioButton::indicator {
 }
 
 QRadioButton::indicator::unchecked {
-    border: 2px solid #cc3c3c; /* Border of the unchecked circle */
+    border: 2px solid #d84b3d;; /* Border of the unchecked circle */
     background-color: white;
     border-radius: 7px;      /* Make it a perfect circle */
 }
 
 QRadioButton::indicator::checked {
-    border: 2px solid  #cc3c3c;
-    background-color:  #cc3c3c;
+    border: 2px solid #d84b3d;;
+    background-color:  #d84b3d;;
     border-radius: 7px;
 }
 </string>
@@ -436,8 +436,8 @@ QRadioButton::indicator::checked {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
+         <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
         </property>
@@ -461,15 +461,15 @@ QSlider::groove:horizontal {
 }
 
 QSlider::add-page:horizontal {
-    background: #cc3c3c;
-    border: 1px solid #cc3c3c;
+    background: #d84b3d;
+    border: 1px solid #d84b3d;
     height: 3px;
     border-radius: 1.5px;
 }
 
 QSlider::handle:horizontal {
     background: #ffffff;  
-    border: 2px solid #cc3c3c;
+    border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
     border-radius: 6px;    
@@ -486,8 +486,8 @@ QSlider::handle:horizontal {
         <item>
          <widget class="QLabel" name="transmitter_label">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -523,7 +523,7 @@ border-color: transparent;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color:#ffffff</string>
+         <string notr="true">background-color:#000000</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -558,8 +558,8 @@ border-color: transparent;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
+         <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
         </property>
@@ -578,40 +578,37 @@ border-color: transparent;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QComboBox {
-                color: rgb(255, 255, 255);
-                font-size: 18px;
-                background-color: rgb(24, 24, 24);
-                padding-left: 15px;
-                border: 1px solid transparent;
-                border-radius: 8px; /* Rounded corners */
-            }
+    color: rgb(34, 34, 34); /* Dark text color for readability */
+    font-size: 18px;
+    background-color: rgb(220, 230, 220); /* Soft contrasting background */
+    padding-left: 15px;
+    border: 1px solid rgb(180, 190, 180); /* Subtle border to define the combo box */
+    border-radius: 8px; /* Rounded corners */
+}
 
-            QComboBox QAbstractItemView {
-                background-color: #444444;    /* Dropdown list background */
-                color: #ffffff;               /* Dropdown list text color */
-                selection-background-color: #555555;  /* Highlight background */
-                selection-color: #FF5757;     /* Highlighted text color */
-            }
+QComboBox QAbstractItemView {
+    background-color: rgb(245, 250, 245); /* Lighter dropdown background */
+    color: rgb(34, 34, 34); /* Dark text for readability */
+    selection-background-color: rgb(200, 230, 200); /* Light greenish highlight background */
+    selection-color: rgb(0, 100, 200); /* Highlighted text color */
+}
 
-            /* Remove the default arrow */
-            QComboBox::drop-down {
-                margin-right: 10px;
-                border-top-right-radius: 15px; /* Apply radius to the top-right */
-                border-bottom-right-radius: 15px; /* Apply radius to the bottom-right */
-            }
+/* Remove the default arrow */
+QComboBox::drop-down {
+    margin-right: 10px;
+    border-top-right-radius: 15px; /* Apply radius to the top-right */
+    border-bottom-right-radius: 15px; /* Apply radius to the bottom-right */
+    border-left: 1px solid rgb(180, 190, 180); /* Subtle separation for dropdown */
+    background-color: rgb(210, 220, 210); /* Dropdown background */
+}
 
-            /* Customize the arrow (triangle) */
-            QComboBox::down-arrow {
-                image: url(Deliverables/down-arrow.png); /* Optional: use a custom image for the arrow */
-                width: 10px;
-                height: 10px;
-                margin-right: 10px; /* Moves the arrow more to the right */
-            }&lt;/string&gt;
-   &lt;/property&gt;
-  &lt;/widget&gt;
- &lt;/widget&gt;
- &lt;resources/&gt;
-&lt;/ui&gt;
+/* Customize the arrow (triangle) */
+QComboBox::down-arrow {
+    image: url(Deliverables/down-arrow.png); /* Optional: use a custom image for the arrow */
+    width: 10px;
+    height: 10px;
+    margin-right: 10px; /* Moves the arrow more to the right */
+}
 </string>
         </property>
        </widget>
@@ -638,8 +635,8 @@ border-color: transparent;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
+         <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
         </property>
@@ -663,15 +660,15 @@ QSlider::groove:horizontal {
 }
 
 QSlider::add-page:horizontal {
-    background: #cc3c3c;
-    border: 1px solid #cc3c3c;
+    background: #d84b3d;
+    border: 1px solid #d84b3d;
     height: 3px;
     border-radius: 1.5px;
 }
 
 QSlider::handle:horizontal {
     background: #ffffff;  
-    border: 2px solid #cc3c3c;
+    border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
     border-radius: 6px;    
@@ -688,8 +685,8 @@ QSlider::handle:horizontal {
         <item>
          <widget class="QLabel" name="roc_label">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -701,8 +698,8 @@ border-color: transparent;</string>
         <item>
          <widget class="QLabel" name="label_17">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -735,7 +732,7 @@ border-color: transparent;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: #ffffff</string>
+         <string notr="true">background-color: #000000</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -764,8 +761,8 @@ border-color: transparent;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
+         <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
         </property>
@@ -789,15 +786,15 @@ QSlider::groove:horizontal {
 }
 
 QSlider::add-page:horizontal {
-    background: #cc3c3c;
-    border: 1px solid #cc3c3c;
+    background: #d84b3d;
+    border: 1px solid #d84b3d;
     height: 3px;
     border-radius: 1.5px;
 }
 
 QSlider::handle:horizontal {
     background: #ffffff;  
-    border: 2px solid #cc3c3c;
+    border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
     border-radius: 6px;    
@@ -814,8 +811,8 @@ QSlider::handle:horizontal {
         <item>
          <widget class="QLabel" name="frequency_label">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -827,8 +824,8 @@ border-color: transparent;</string>
         <item>
          <widget class="QLabel" name="frequency_unit">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -861,8 +858,8 @@ border-color: transparent;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-font-size: 14px;
+         <string notr="true">color:black;
+font-size: 15px;
 font-weight:600;
 border-color: transparent;</string>
         </property>
@@ -886,15 +883,15 @@ QSlider::groove:horizontal {
 }
 
 QSlider::add-page:horizontal {
-    background: #cc3c3c;
-    border: 1px solid #cc3c3c;
+    background: #d84b3d;
+    border: 1px solid #d84b3d;
     height: 3px;
     border-radius: 1.5px;
 }
 
 QSlider::handle:horizontal {
     background: #ffffff;  
-    border: 2px solid #cc3c3c;
+    border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
     border-radius: 6px;    
@@ -911,8 +908,8 @@ QSlider::handle:horizontal {
         <item>
          <widget class="QLabel" name="shift_label">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
@@ -924,8 +921,8 @@ border-color: transparent;</string>
         <item>
          <widget class="QLabel" name="label_21">
           <property name="styleSheet">
-           <string notr="true">color:white;
-font-size: 10px;
+           <string notr="true">color:black;
+font-size: 12px;
 font-weight:600;
 border-color: transparent;</string>
           </property>
