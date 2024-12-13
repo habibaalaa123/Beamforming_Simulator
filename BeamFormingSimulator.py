@@ -2,11 +2,11 @@ import sys
 import numpy as np
 from PyQt5 import uic
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QSlider, QLabel, QRadioButton, \
-    QButtonGroup, QComboBox, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QSlider, QLabel, QRadioButton,QPushButton ,QButtonGroup, QComboBox, QHBoxLayout
 from PyQt5.QtCore import Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from matplotlib import pyplot as plt
 
 class BeamformingVisualizer(QMainWindow):
     def __init__(self):
@@ -95,6 +95,13 @@ class BeamformingVisualizer(QMainWindow):
         self.layout_selector.addItems(["Linear", "Curved"])
         self.layout_selector.currentTextChanged.connect(self.update_layout)
 
+        self.button_tumor = self.findChild(QPushButton, "tumor")
+        self.button_ultrasound = self.findChild(QPushButton , "ultrasound")
+        self.button_5G = self.findChild(QPushButton, "fiveg")
+
+        self.button_tumor.clicked.connect(lambda: self.apply_scenario("Tumor"))
+        self.button_ultrasound.clicked.connect(lambda: self.apply_scenario("UltraSound"))
+        self.button_5G.clicked.connect(lambda: self.apply_scenario("5G"))
         self.update_visualization()
 
     def create_mode_selection(self, layout):
@@ -179,18 +186,25 @@ class BeamformingVisualizer(QMainWindow):
             self.spacing_label.setText(str(self.curvature))
         self.update_visualization()
 
-    def generate_antenna_positions(self, num_antennas, curvature, layout_type='Linear'):
-       # by default it's linear
+    def generate_antenna_positions(self, num_antennas, curvature, layout_type='Linear', arc_angle=np.pi):
+
         if layout_type == 'Linear':
-            return  np.array([
-             [n * self.spacing, 0] for n in range(-(self.num_antennas - 1) // 2, (self.num_antennas + 1) // 2)
-         ])
-        elif layout_type == 'Curved':
-            angle_step = 2 * np.pi / num_antennas
             return np.array([
-                [curvature * np.cos(n * angle_step), curvature * np.sin(n * angle_step)]
+                [n * self.spacing, 0] for n in range(-(num_antennas - 1) // 2, (num_antennas + 1) // 2)
+            ])
+
+        elif layout_type == 'Curved':
+
+            angle_step = arc_angle / (num_antennas - 1)
+            start_angle = -arc_angle / 2  # center the arc around zero
+
+            return np.array([
+                [curvature * np.sin(start_angle + n * angle_step),
+                 -curvature * np.cos(start_angle + n * angle_step)]
                 for n in range(num_antennas)
             ])
+        else:
+            raise ValueError(f"Unsupported layout type: {layout_type}")
 
     def update_visualization(self):
         self.beamforming_figure.clear()
@@ -209,7 +223,10 @@ class BeamformingVisualizer(QMainWindow):
         self.beamprofile_canvas.draw()
 
     def plot_beam_profile(self, ax):
-        d = self.spacing
+        if self.antenna_layout == "Linear":
+            d = self.spacing
+        else:
+            d = 2 * self.curvature * np.sin(np.pi / self.num_antennas)
         k = 2 * np.pi / self.wavelength  # Number of waves
         steering_delay = -k * d * np.sin(np.radians(self.beam_direction))
 
@@ -269,9 +286,8 @@ class BeamformingVisualizer(QMainWindow):
         ax.tick_params(colors="black")  # Black tick labels
         ax.spines[:].set_color("black")  # Black spines
 
-        # Plot the interference map
-        im = ax.imshow(interference_map, extent=[-10, 10, -10, 10], origin="lower",
-                       cmap="hot", aspect="auto")
+        cmap = plt.get_cmap('coolwarm')
+        im = ax.imshow(interference_map, extent=[-10, 10, -10, 10], origin="lower", cmap=cmap, aspect="auto")
 
         # Add colorbar with adjusted style
         cbar = self.beamforming_figure.colorbar(im, ax=ax)
@@ -303,7 +319,7 @@ class BeamformingVisualizer(QMainWindow):
         ax.tick_params(colors="white")  # White tick labels
         ax.spines[:].set_color("white")  # White spines
         # transmitter fixed at position
-        transmitter_position = np.array([0, 10])
+        transmitter_position = np.array([10, 10])
 
         # receiver_positions = np.array([
         #     [n * self.spacing, 0] for n in range(-(self.num_antennas - 1) // 2, (self.num_antennas + 1) // 2)
@@ -321,8 +337,8 @@ class BeamformingVisualizer(QMainWindow):
         field_map = np.abs(field_map)
         field_map /= np.max(field_map)
 
-
-        im = ax.imshow(field_map, extent=[-10, 10, -10, 10], origin="lower", cmap="hot", aspect="auto")
+        cmap = plt.get_cmap('coolwarm')
+        im = ax.imshow(field_map, extent=[-10, 10, -10, 10], origin="lower", cmap=cmap, aspect="auto")
         # color bar
         cbar = self.beamforming_figure.colorbar(im, ax=ax)
         cbar.set_label("Field Intensity", color = "white")
@@ -340,6 +356,40 @@ class BeamformingVisualizer(QMainWindow):
         ax.set_ylabel("y (meters)", color="white")
 
         ax.legend()
+    def apply_scenario(self, scenario):
+        if scenario == "5G":
+            self.mode_group.buttons()[1].setChecked(True)
+            self.frequency = 3e8
+            self.wavelength = 3e8 / 3e8
+            self.spacing = 0.5 * self.wavelength
+            self.mode = "Receiving"
+            self.antenna_layout = "Linear"
+            self.num_antennas = 9
+        elif scenario == "UltraSound":
+            self.mode_group.buttons()[0].setChecked(True)
+            self.frequency = 3e6
+            self.wavelength = 1540 / 3e6
+            self.mode = "Transmitting"
+            self.num_antennas = 9
+            self.antenna_layout = "Linear"
+            self.spacing = 0.5 * self.wavelength
+
+            # self.spacing = 0.5 * self.wavelength
+        else:
+            self.mode_group.buttons()[0].setChecked(True)
+            self.frequency = 3e8
+            self.wavelength = 3e8 / 3e8
+            self.mode = "Transmitting"
+            self.num_antennas = 9
+            self.antenna_layout = "Curved"
+
+        self.layout_selector.setCurrentText(self.antenna_layout)
+
+        self.antenna_slider.setValue(self.num_antennas)
+        self.frequency_slider.setValue(int(self.frequency / 1e8))
+        self.spacing_slider.setValue(int((self.spacing / self.wavelength) * 10))
+
+        self.update_visualization()
 
 
 if __name__ == "__main__":
