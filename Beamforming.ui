@@ -201,21 +201,11 @@ border-color: transparent;</string>
            </size>
           </property>
           <property name="styleSheet">
-<<<<<<< HEAD
-           <string notr="true">
-               background-color: #d84b3d;
-               color: #ffffff;
-               border: 1px;
-               border-radius: 15px;
-               font-weight:800
-           </string>
-=======
            <string notr="true">background-color: #d84b3d;
 color: rgb(255, 255, 255);
 border: 1px;
 border-radius: 15px;
 font-weight:800;</string>
->>>>>>> a1fcdd927f8590120e0fe3a955740c3cfc1065d0
           </property>
           <property name="text">
            <string/>
@@ -466,15 +456,8 @@ border-color: transparent;</string>
 }
 QSlider::groove:horizontal {
     height: 5px;
-<<<<<<< HEAD
-    background: white;
-	border: 1px solid #black;
-    border-radius: 3px;
-=======
     background: white;  
-	border: 1px solid #black;
     border-radius: 3px;   
->>>>>>> a1fcdd927f8590120e0fe3a955740c3cfc1065d0
 }
 
 QSlider::add-page:horizontal {
@@ -485,22 +468,15 @@ QSlider::add-page:horizontal {
 }
 
 QSlider::handle:horizontal {
-<<<<<<< HEAD
-    background: #ffffff;
-    border: 2px solid #d84b3d;
-    width: 10px;
-    height: 10px;
-    border-radius: 6px;
-    margin: -4px 0;
-=======
     background: #ffffff;  
     border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
     border-radius: 6px;    
     margin: -4px 0;       
->>>>>>> a1fcdd927f8590120e0fe3a955740c3cfc1065d0
-}</string>
+}
+
+</string>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -679,8 +655,8 @@ border-color: transparent;</string>
 }
 QSlider::groove:horizontal {
     height: 5px;
-    background: white;
-    border-radius: 3px;
+    background: white;  
+    border-radius: 3px;   
 }
 
 QSlider::add-page:horizontal {
@@ -691,16 +667,12 @@ QSlider::add-page:horizontal {
 }
 
 QSlider::handle:horizontal {
-<<<<<<< HEAD
-    background: #ffffff;
-=======
     background: #ffffff;  
->>>>>>> a1fcdd927f8590120e0fe3a955740c3cfc1065d0
     border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
-    border-radius: 6px;
-    margin: -4px 0;
+    border-radius: 6px;    
+    margin: -4px 0;       
 }
 
 </string>
@@ -809,8 +781,8 @@ border-color: transparent;</string>
 }
 QSlider::groove:horizontal {
     height: 5px;
-    background: white;
-    border-radius: 3px;
+    background: white;  
+    border-radius: 3px;   
 }
 
 QSlider::add-page:horizontal {
@@ -821,16 +793,12 @@ QSlider::add-page:horizontal {
 }
 
 QSlider::handle:horizontal {
-<<<<<<< HEAD
-    background: #ffffff;
-=======
     background: #ffffff;  
->>>>>>> a1fcdd927f8590120e0fe3a955740c3cfc1065d0
     border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
-    border-radius: 6px;
-    margin: -4px 0;
+    border-radius: 6px;    
+    margin: -4px 0;       
 }
 
 </string>
@@ -910,8 +878,8 @@ border-color: transparent;</string>
 }
 QSlider::groove:horizontal {
     height: 5px;
-    background: white;
-    border-radius: 3px;
+    background: white;  
+    border-radius: 3px;   
 }
 
 QSlider::add-page:horizontal {
@@ -922,16 +890,12 @@ QSlider::add-page:horizontal {
 }
 
 QSlider::handle:horizontal {
-<<<<<<< HEAD
-    background: #ffffff;
-=======
     background: #ffffff;  
->>>>>>> a1fcdd927f8590120e0fe3a955740c3cfc1065d0
     border: 2px solid #d84b3d;
     width: 10px;
     height: 10px;
-    border-radius: 6px;
-    margin: -4px 0;
+    border-radius: 6px;    
+    margin: -4px 0;       
 }
 
 </string>
