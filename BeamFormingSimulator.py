@@ -20,7 +20,7 @@ class BeamformingVisualizer(QMainWindow):
         self.speed_of_light = 3e8
         self.wavelength = self.speed_of_light / self.frequency
         self.spacing = self.wavelength / 2
-        self.theta = np.linspace(0, 360, 360 // self.angle_resolution + 1)
+        self.theta = np.linspace(-90, 90, 180 // self.angle_resolution + 1)
         self.beam_direction = 0
         self.mode = "Transmitting"
         self.curvature = 1
@@ -99,6 +99,7 @@ class BeamformingVisualizer(QMainWindow):
         self.button_ultrasound = self.findChild(QPushButton , "ultrasound")
         self.button_5G = self.findChild(QPushButton, "fiveg")
 
+
         self.button_tumor.clicked.connect(lambda: self.apply_scenario("Tumor"))
         self.button_ultrasound.clicked.connect(lambda: self.apply_scenario("UltraSound"))
         self.button_5G.clicked.connect(lambda: self.apply_scenario("5G"))
@@ -148,7 +149,7 @@ class BeamformingVisualizer(QMainWindow):
 
         self.frequency = frequency_value * 1e8
         self.wavelength = self.speed_of_light / self.frequency
-        self.spacing = self.spacing_slider.value() / 10 * self.wavelength
+        # self.spacing = self.spacing_slider.value() / 10 * self.wavelength
         label.setText(f" {self.frequency / 1e9}")
         self.update_visualization()
 
@@ -186,7 +187,7 @@ class BeamformingVisualizer(QMainWindow):
             self.spacing_label.setText(str(self.curvature))
         self.update_visualization()
 
-    def generate_antenna_positions(self, num_antennas, curvature, layout_type='Linear', arc_angle=np.pi):
+    def generate_antenna_positions(self, num_antennas, curvature, layout_type='Linear', arc_angle=np.pi/3):
 
         if layout_type == 'Linear':
             return np.array([
@@ -196,7 +197,7 @@ class BeamformingVisualizer(QMainWindow):
         elif layout_type == 'Curved':
 
             angle_step = arc_angle / (num_antennas - 1)
-            start_angle = -arc_angle / 2  # center the arc around zero
+            start_angle = -arc_angle / 2
 
             return np.array([
                 [curvature * np.sin(start_angle + n * angle_step),
@@ -221,169 +222,215 @@ class BeamformingVisualizer(QMainWindow):
 
         self.beamforming_canvas.draw()
         self.beamprofile_canvas.draw()
+        # if self.antenna_layout == "Linear":
+        #     d = self.spacing
+        # else:
+        #     d = 2 * self.curvature * np.sin(np.pi / self.num_antennas)
 
     def plot_beam_profile(self, ax):
+        positions = self.generate_antenna_positions(
+            num_antennas=self.num_antennas,
+            curvature=self.curvature,
+            layout_type=self.antenna_layout,
+        )
+        array_factor = None
+        k = 2 * np.pi / self.wavelength  # number of waves
         if self.antenna_layout == "Linear":
             d = self.spacing
-        else:
-            d = 2 * self.curvature * np.sin(np.pi / self.num_antennas)
-        k = 2 * np.pi / self.wavelength  # Number of waves
-        steering_delay = -k * d * np.sin(np.radians(self.beam_direction))
+            steering_delay = -k * d * np.sin(np.radians(self.beam_direction))
 
-        # Calculating the array factor
-        theta_rad = np.radians(self.theta)
-        array_factor = np.abs(np.sum(
-            [np.exp(1j * (n - 1) * (k * d * np.sin(theta_rad) + steering_delay)) for n in
-             range(1, self.num_antennas + 1)],
-            axis=0
-        ))
+            # calculating the array factor as it represent the gain
+            theta_rad = np.radians(self.theta)
+            array_factor = np.abs(np.sum(
+                [np.exp(1j * (n - 1) * (k * d * np.sin(theta_rad) + steering_delay)) for n in
+                 range(1, self.num_antennas + 1)],
+                axis=0
+            ))
+        else :
+
+            theta_b_rad = np.radians(self.beam_direction)
+            steering_delays = -k * (positions[:, 0] * np.sin(theta_b_rad) + positions[:, 1] * np.cos(theta_b_rad))
+
+            theta_rad = np.radians(self.theta)
+            array_factor = np.abs(np.sum(
+                [np.exp(1j * (k * (positions[n, 0] * np.sin(theta_rad) + positions[n, 1] * np.cos(theta_rad)) +
+                              steering_delays[n]))
+                 for n in range(self.num_antennas)],
+                axis=0
+            ))
 
         array_factor_db = 20 * np.log10(array_factor / np.max(array_factor))
         label = "Array Factor (Transmitting)" if self.mode == "Transmitting" else "Array Factor (Receiving)"
 
-        # Set dark theme for the plot
-        ax.set_facecolor("#222222")  # Dark gray background for axes
-        self.beamprofile_figure.patch.set_facecolor("#222222")  # Match figure background
-        ax.tick_params(colors="white")  # White tick labels
-        ax.spines[:].set_color("white")  # White spines
+        # Set light theme for the plot
+        ax.set_facecolor("#f5f2f2")  # White background for axes
+        self.beamprofile_figure.patch.set_facecolor("#f5f2f2")  # Match figure background
+        ax.tick_params(colors="black")  # Black tick labels
+        ax.spines[:].set_color("black")  # Black spines
 
-        # Plot the array factor
+        # plot the array factor and making it have zero at middle , and trim the bottom half of circle
         ax.plot(np.radians(self.theta), array_factor_db, label=label, color="red", linewidth=1.5)
+        # ax.set_ylim(0, 1)
+        ax.set_thetamin(-90)
+        ax.set_thetamax(90)
+        ax.set_theta_zero_location("N")
+        ax.set_theta_direction(-1)
 
 
-        # Add legend with adjusted colors
-        legend = ax.legend(loc = 'upper right', facecolor="#333333", edgecolor="white")
+        # ddd legend with adjusted colors
+        legend = ax.legend(loc='upper right', facecolor="#EEEEEE", edgecolor="black")
         for text in legend.get_texts():
-            text.set_color("white")
+            text.set_color("black")
 
 
     def plot_interference_map(self, ax):
-        # Generate grid for interference map
-        x = np.linspace(-10, 10, 100)
-        y = np.linspace(-10, 10, 100)
+       # the new one
+        # generate grid for interference map
+        x = np.linspace(-10, 10, 200)  # Higher resolution for finer details
+        y = np.linspace(-1, 10, 200)
         X, Y = np.meshgrid(x, y)
 
-        # Calculate transmitter positions
-        transmitter_positions = self.generate_antenna_positions(self.num_antennas, self.curvature, self.antenna_layout)
+        # calculate transmitter positions
+        transmitter_positions = self.generate_antenna_positions(
+            self.num_antennas, self.curvature, self.antenna_layout
+        )
 
-        k = 2 * np.pi / self.wavelength
+        k = 2 * np.pi / self.wavelength  # Wave number
         steering_delay = -k * self.spacing * np.sin(np.radians(self.beam_direction))
 
+        # initialize field map for summing wave contributions
         field_map = np.zeros_like(X, dtype=complex)
 
         for idx, pos in enumerate(transmitter_positions):
-            # Calculate distances from mesh to transmitter
+            # calculate distances from grid points to transmitter positions
             distances = np.sqrt((X - pos[0]) ** 2 + (Y - pos[1]) ** 2)
             distances[distances == 0] = 1e-6  # Avoid division by zero
 
-            phase_shift = idx * steering_delay
+            # compute phase shifts for wave propagation and steering
+            phase_shift = -idx * steering_delay # put negative to make them alignd
             field_map += np.exp(1j * (k * distances + phase_shift))
 
-        interference_map = np.abs(field_map) ** 2
-        interference_map /= np.max(interference_map)  # Normalize
+        # compute the intensity to show interference patterns
+        interference_map = np.real(field_map)  # use real part to show wave interaction instead of max
+       #     interference_map = np.abs(field_map) ** 2
 
-        # Set dark theme
-        ax.set_facecolor("#222222")  # Dark gray background for axes
-        self.beamforming_figure.patch.set_facecolor("#222222")  # Match figure background
-        ax.tick_params(colors="white")  # White tick labels
-        ax.spines[:].set_color("white")  # White spines
+        # normalize to center zero intensity for destructive interference
+        interference_map /= np.max(np.abs(interference_map))
+
+       # Set light theme
+
+        ax.set_facecolor("#f5f2f2")  # White background for axes
+        self.beamforming_figure.patch.set_facecolor("#f5f2f2")  # Match figure background
+        ax.tick_params(colors="black")  # Black tick labels
+        ax.spines[:].set_color("black")  # Black spines
 
         cmap = plt.get_cmap('coolwarm')
-        im = ax.imshow(interference_map, extent=[-10, 10, -10, 10], origin="lower", cmap=cmap, aspect="auto")
+        im = ax.imshow(interference_map, extent=[-10, 10, -2, 10], origin="lower", cmap=cmap, aspect="auto")
 
         # Add colorbar with adjusted style
         cbar = self.beamforming_figure.colorbar(im, ax=ax)
-        cbar.ax.yaxis.set_tick_params(color="white")
-        cbar.outline.set_edgecolor("white")
-        cbar.set_label("Interference Intensity", color="white")
+        cbar.ax.yaxis.set_tick_params(color="black")
+        cbar.outline.set_edgecolor("black")
+        cbar.set_label("Interference Intensity", color="black")
 
         # Set axis labels
-        ax.set_xlabel("x (meters)", color="white")
-        ax.set_ylabel("y (meters)", color="white")
+        ax.set_xlabel("x (meters)", color="black")
+        ax.set_ylabel("y (meters)", color="black")
 
         # Plot transmitter positions
         ax.scatter(transmitter_positions[:, 0], transmitter_positions[:, 1],
-                   c='cyan', marker='o', label="Transmitters")
+                   c='blue', marker='o', label="Transmitters")  # Use blue for transmitters in light mode
 
         # Add legend with adjusted text color
-        legend = ax.legend(facecolor="#333333", edgecolor="white")
+        legend = ax.legend(facecolor="#EEEEEE", edgecolor="black")
         for text in legend.get_texts():
-            text.set_color("white")
+            text.set_color("black")
 
     def plot_receiving(self, ax):
-
-        x = np.linspace(-10, 10, 100)
-        y = np.linspace(-10, 10, 100)
+        # the new recieving
+      # grid
+        x = np.linspace(-10, 10, 300)
+        y = np.linspace(-10, 10, 300)
         X, Y = np.meshgrid(x, y)
 
-        ax.set_facecolor("#222222")  # Dark gray background for axes
-        self.beamforming_figure.patch.set_facecolor("#222222")  # Match figure background
-        ax.tick_params(colors="white")  # White tick labels
-        ax.spines[:].set_color("white")  # White spines
-        # transmitter fixed at position
+        # set dark theme for the plot
+        ax.set_facecolor("#f5f2f2")  # Dark gray background for axes
+        self.beamforming_figure.patch.set_facecolor("#f5f2f2")  # Match figure background
+        ax.tick_params(colors="black")  # White tick labels
+        ax.spines[:].set_color("black")  # White spines
+
+        # transmitter fixed at position far away
         transmitter_position = np.array([10, 10])
 
-        # receiver_positions = np.array([
-        #     [n * self.spacing, 0] for n in range(-(self.num_antennas - 1) // 2, (self.num_antennas + 1) // 2)
-        # ])
-        receiver_positions = self.generate_antenna_positions(self.num_antennas, self.curvature, self.antenna_layout)
+        # receiver positions
+        receiver_positions = self.generate_antenna_positions(
+            self.num_antennas, self.curvature, self.antenna_layout
+        )
 
-        # wavenumber
+        # wavenumber and distances
         k = 2 * np.pi / self.wavelength
 
+        # compute distances from the transmitter
         distances_tx = np.sqrt((X - transmitter_position[0]) ** 2 + (Y - transmitter_position[1]) ** 2)
-        distances_tx[distances_tx == 0] = 1e-6  # avoid division by zero
-        field_map = np.cos(k * distances_tx)  # field strength at each point
+        distances_tx[distances_tx == 0] = 1e-6  # Avoid division by zero
 
-        # normalize the field map
-        field_map = np.abs(field_map)
-        field_map /= np.max(field_map)
+        # simulate interference pattern (constructive/destructive waves)
+        field_map = np.sin(k * distances_tx)  # Sinusoidal wave interference
 
-        cmap = plt.get_cmap('coolwarm')
+        # normalize to enhance visualization (center around 0 for interference effects)
+        field_map /= np.max(np.abs(field_map))
+
+        # use a diverging colormap for constructive/destructive visualization
+        cmap = plt.get_cmap("coolwarm")
         im = ax.imshow(field_map, extent=[-10, 10, -10, 10], origin="lower", cmap=cmap, aspect="auto")
-        # color bar
-        cbar = self.beamforming_figure.colorbar(im, ax=ax)
-        cbar.set_label("Field Intensity", color = "white")
-        cbar.ax.yaxis.set_tick_params(color="white")
-        cbar.outline.set_edgecolor("white")
 
-        # vis for transmitter as point
+        # add colorbar with appropriate labels
+        cbar = self.beamforming_figure.colorbar(im, ax=ax)
+        cbar.set_label("Field Intensity", color="black")
+        cbar.ax.yaxis.set_tick_params(color="black")
+        cbar.outline.set_edgecolor("black")
+
+        # plot the transmitter position
         ax.scatter(transmitter_position[0], transmitter_position[1], color="blue", label="Transmitter", s=100,
                    marker="o")
-        # vis for receivers as x
-        for receiver in receiver_positions:
-            ax.scatter(receiver[0], receiver[1], color="black",
-                       label="Receiver" if receiver is receiver_positions[0] else "", s=100, marker="x")
-        ax.set_xlabel("x (meters)", color="white")
-        ax.set_ylabel("y (meters)", color="white")
 
-        ax.legend()
+        # plot receiver positions
+        ax.scatter(receiver_positions[:, 0], receiver_positions[:, 1], color="cyan", label="Receivers", s=50,
+                   marker="x")
+
+        # set axis labels and legend
+        ax.set_xlabel("x (meters)", color="black")
+        ax.set_ylabel("y (meters)", color="black")
+        ax.legend(facecolor="#333333", edgecolor="white", loc="upper right")
+        for text in ax.legend().get_texts():
+            text.set_color("black")
+
     def apply_scenario(self, scenario):
         if scenario == "5G":
             self.mode_group.buttons()[1].setChecked(True)
-            self.frequency = 3e8
-            self.wavelength = 3e8 / 3e8
+            self.frequency = 1e9
+            self.wavelength = 3e8 / 1e9
             self.spacing = 0.5 * self.wavelength
             self.mode = "Receiving"
             self.antenna_layout = "Linear"
-            self.num_antennas = 9
+            self.num_antennas = 57
         elif scenario == "UltraSound":
             self.mode_group.buttons()[0].setChecked(True)
-            self.frequency = 3e6
-            self.wavelength = 1540 / 3e6
+            self.frequency = 0.3e4
+            self.wavelength =  1540/self.frequency
             self.mode = "Transmitting"
-            self.num_antennas = 9
+            self.num_antennas = 7
             self.antenna_layout = "Linear"
             self.spacing = 0.5 * self.wavelength
 
-            # self.spacing = 0.5 * self.wavelength
         else:
             self.mode_group.buttons()[0].setChecked(True)
-            self.frequency = 3e8
-            self.wavelength = 3e8 / 3e8
+            self.frequency = 0.6e9
+            self.wavelength = 3e8 / 0.6e9
             self.mode = "Transmitting"
-            self.num_antennas = 9
+            self.num_antennas = 23
             self.antenna_layout = "Curved"
+            self.curvature = 2
 
         self.layout_selector.setCurrentText(self.antenna_layout)
 
@@ -399,3 +446,112 @@ if __name__ == "__main__":
     visualizer = BeamformingVisualizer()
     visualizer.show()
     sys.exit(app.exec_())
+    # def plot_interference_map(self, ax):
+    #     # Generate grid for interference map
+    #     x = np.linspace(-10, 10, 100)
+    #     y = np.linspace(-1, 10, 100)
+    #     X, Y = np.meshgrid(x, y)
+    #
+    #     # Calculate transmitter positions
+    #     transmitter_positions = self.generate_antenna_positions(self.num_antennas, self.curvature, self.antenna_layout)
+    #
+    #     k = 2 * np.pi / self.wavelength
+    #     steering_delay = -k * self.spacing * np.sin(np.radians(self.beam_direction))
+    #
+    #     field_map = np.zeros_like(X, dtype=complex)
+    #
+    #     for idx, pos in enumerate(transmitter_positions):
+    #         # Calculate distances from mesh to transmitter
+    #         distances = np.sqrt((X - pos[0]) ** 2 + (Y - pos[1]) ** 2)
+    #         distances[distances == 0] = 1e-6  # Avoid division by zero
+    #
+    #         phase_shift = idx * steering_delay
+    #         field_map += np.exp(1j * (k * distances + phase_shift))
+    #
+    #     interference_map = np.abs(field_map) ** 2
+    #     interference_map /= np.max(interference_map)  # Normalize
+    #
+    #     # Set dark theme
+    #     ax.set_facecolor("#222222")  # Dark gray background for axes
+    #     self.beamforming_figure.patch.set_facecolor("#222222")  # Match figure background
+    #     ax.tick_params(colors="white")  # White tick labels
+    #     ax.spines[:].set_color("white")  # White spines
+    #
+    #     cmap = plt.get_cmap('coolwarm')
+    #     im = ax.imshow(interference_map, extent=[-10, 10, -1, 10], origin="lower", cmap=cmap, aspect="auto",  interpolation='nearest')
+    #
+    #     # Add colorbar with adjusted style
+    #     cbar = self.beamforming_figure.colorbar(im, ax=ax)
+    #     cbar.ax.yaxis.set_tick_params(color="white")
+    #     cbar.outline.set_edgecolor("white")
+    #     cbar.set_label("Interference Intensity", color="white")
+    #
+    #     # Set axis labels
+    #     ax.set_xlabel("x (meters)", color="white")
+    #     ax.set_ylabel("y (meters)", color="white")
+    #
+    #     # Plot transmitter positions
+    #     ax.scatter(transmitter_positions[:, 0], transmitter_positions[:, 1],
+    #                c='cyan', marker='o', label="Transmitters")
+    #
+    #     # Add legend with adjusted text color
+    #     legend = ax.legend(facecolor="#333333", edgecolor="white")
+    #     for text in legend.get_texts():
+    #         text.set_color("white")
+    # def plot_receiving(self, ax):
+    # #the old recieving
+    #     x = np.linspace(-10, 10, 100)  # Use the same resolution as in your original code
+    #     y = np.linspace(-10, 10, 100)
+    #     X, Y = np.meshgrid(x, y)
+    #
+    #     ax.set_facecolor("#222222")  # Dark gray background for axes
+    #     self.beamforming_figure.patch.set_facecolor("#222222")  # Match figure background
+    #     ax.tick_params(colors="white")  # White tick labels
+    #     ax.spines[:].set_color("white")  # White spines
+    #
+    #     # Transmitter fixed at position
+    #     transmitter_position = np.array([10, 10])
+    #
+    #     # Receiver positions
+    #     receiver_positions = self.generate_antenna_positions(
+    #         self.num_antennas, self.curvature, self.antenna_layout
+    #     )
+    #
+    #     # Wavenumber
+    #     k = 2 * np.pi / self.wavelength
+    #
+    #     # Compute distances from the transmitter
+    #     distances_tx = np.sqrt((X - transmitter_position[0]) ** 2 + (Y - transmitter_position[1]) ** 2)
+    #     distances_tx[distances_tx == 0] = 1e-6  # Avoid division by zero
+    #
+    #     # Field strength with discrete sinusoidal variation
+    #     field_map = np.cos(k * distances_tx)
+    #
+    #     # Create a custom colormap with discrete levels
+    #     cmap = plt.get_cmap("coolwarm")
+    #     norm = plt.Normalize(vmin=-1, vmax=1)  # Normalize field_map to [-1, 1]
+    #     discrete_levels = np.linspace(-1, 1, 10)  # Divide the cosine range into discrete levels
+    #     field_map_discrete = np.digitize(field_map, discrete_levels) - 1
+    #     field_map_discrete = discrete_levels[field_map_discrete]  # Map to discrete values
+    #
+    #     im = ax.imshow(field_map_discrete, extent=[-10, 10, -10, 10], origin="lower", cmap=cmap, norm=norm,
+    #                    aspect="auto")
+    #
+    #     # Color bar
+    #     cbar = self.beamforming_figure.colorbar(im, ax=ax, ticks=discrete_levels)
+    #     cbar.set_label("Field Intensity", color="white")
+    #     cbar.ax.yaxis.set_tick_params(color="white")
+    #     cbar.outline.set_edgecolor("white")
+    #
+    #     # Visualize the transmitter as a point
+    #     ax.scatter(transmitter_position[0], transmitter_position[1], color="blue", label="Transmitter", s=100,
+    #                marker="o")
+    #
+    #     # Visualize the receivers as x's
+    #     for receiver in receiver_positions:
+    #         ax.scatter(receiver[0], receiver[1], color="black",
+    #                    label="Receiver" if receiver is receiver_positions[0] else "", s=100, marker="x")
+    #
+    #     ax.set_xlabel("x (meters)", color="white")
+    #     ax.set_ylabel("y (meters)", color="white")
+    #     ax.legend()
