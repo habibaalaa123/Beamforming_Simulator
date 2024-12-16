@@ -286,8 +286,8 @@ class BeamformingVisualizer(QMainWindow):
     def plot_interference_map(self, ax):
        # the new one
         # generate grid for interference map
-        x = np.linspace(-10, 10, 200)  # Higher resolution for finer details
-        y = np.linspace(-1, 10, 200)
+        x = np.linspace(-10, 10, 300)  # Higher resolution for finer details
+        y = np.linspace(-1, 10, 300)
         X, Y = np.meshgrid(x, y)
 
         # calculate transmitter positions
@@ -425,7 +425,7 @@ class BeamformingVisualizer(QMainWindow):
 
         else:
             self.mode_group.buttons()[0].setChecked(True)
-            self.frequency = 0.6e9
+            self.frequency = 0.9e9
             self.wavelength = 3e8 / 0.6e9
             self.mode = "Transmitting"
             self.num_antennas = 23
