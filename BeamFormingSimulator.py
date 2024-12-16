@@ -286,8 +286,11 @@ class BeamformingVisualizer(QMainWindow):
     def plot_interference_map(self, ax):
        # the new one
         # generate grid for interference map
+        max_limit = 0
+        if self.antenna_layout != "Linear":
+           max_limit = self.curvature + 1  # Adjust this value as needed
         x = np.linspace(-10, 10, 300)  # Higher resolution for finer details
-        y = np.linspace(-1, 10, 300)
+        y = np.linspace(-max_limit, 10, 300)
         X, Y = np.meshgrid(x, y)
 
         # calculate transmitter positions
@@ -325,7 +328,7 @@ class BeamformingVisualizer(QMainWindow):
         ax.spines[:].set_color("black")  # Black spines
 
         cmap = plt.get_cmap('coolwarm')
-        im = ax.imshow(interference_map, extent=[-10, 10, -2, 10], origin="lower", cmap=cmap, aspect="auto")
+        im = ax.imshow(interference_map, extent=[-10, 10, -max_limit, 10], origin="lower", cmap=cmap, aspect="auto")
 
         # Add colorbar with adjusted style
         cbar = self.beamforming_figure.colorbar(im, ax=ax)
@@ -350,7 +353,7 @@ class BeamformingVisualizer(QMainWindow):
         # the new recieving
       # grid
         x = np.linspace(-10, 10, 300)
-        y = np.linspace(-10, 10, 300)
+        y = np.linspace(-1, 10, 300)
         X, Y = np.meshgrid(x, y)
 
         # set dark theme for the plot
@@ -382,7 +385,7 @@ class BeamformingVisualizer(QMainWindow):
 
         # use a diverging colormap for constructive/destructive visualization
         cmap = plt.get_cmap("coolwarm")
-        im = ax.imshow(field_map, extent=[-10, 10, -10, 10], origin="lower", cmap=cmap, aspect="auto")
+        im = ax.imshow(field_map, extent=[-10, 10, -1, 10], origin="lower", cmap=cmap, aspect="auto")
 
         # add colorbar with appropriate labels
         cbar = self.beamforming_figure.colorbar(im, ax=ax)
@@ -395,8 +398,8 @@ class BeamformingVisualizer(QMainWindow):
                    marker="o")
 
         # plot receiver positions
-        ax.scatter(receiver_positions[:, 0], receiver_positions[:, 1], color="cyan", label="Receivers", s=50,
-                   marker="x")
+        ax.scatter(receiver_positions[:, 0], receiver_positions[:, 1], color="black", label="Receivers", s=50,
+                   marker="^")
 
         # set axis labels and legend
         ax.set_xlabel("x (meters)", color="black")
