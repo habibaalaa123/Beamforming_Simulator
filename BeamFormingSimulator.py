@@ -210,8 +210,14 @@ class BeamformingVisualizer(QMainWindow):
     def update_visualization(self):
         self.beamforming_figure.clear()
         self.beamprofile_figure.clear()
+        self.beamforming_figure.set_figwidth(10)
+        self.beamprofile_figure.set_figwidth(10)
+        self.beamprofile_figure.subplots_adjust(left= 0.12,right = 0.79, top = 1.0, bottom = 0.04)
+        # self.beamprofile_figure.set_aspect('auto')
+
         ax1 = self.beamprofile_figure.add_subplot(polar=True)
         ax2 = self.beamforming_figure.add_subplot()
+
 
         if self.mode == "Transmitting":
             self.plot_beam_profile(ax1)
@@ -239,6 +245,7 @@ class BeamformingVisualizer(QMainWindow):
             d = self.spacing
             steering_delay = -k * d * np.sin(np.radians(self.beam_direction))
 
+
             # calculating the array factor as it represent the gain
             theta_rad = np.radians(self.theta)
             array_factor = np.abs(np.sum(
@@ -263,11 +270,11 @@ class BeamformingVisualizer(QMainWindow):
         label = "Array Factor (Transmitting)" if self.mode == "Transmitting" else "Array Factor (Receiving)"
 
         # Set light theme for the plot
-        ax.set_facecolor("#f5f2f2")  # White background for axes
+        ax.set_facecolor("#f5f2f2")
+        self.beamprofile_figure.set_facecolor("#f5f2f2")  # White background for axes
         self.beamprofile_figure.patch.set_facecolor("#f5f2f2")  # Match figure background
         ax.tick_params(colors="black")  # Black tick labels
         ax.spines[:].set_color("black")  # Black spines
-
         # plot the array factor and making it have zero at middle , and trim the bottom half of circle
         ax.plot(np.radians(self.theta), array_factor_db, label=label, color="red", linewidth=1.5)
         # ax.set_ylim(0, 1)
