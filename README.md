@@ -23,9 +23,9 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 3. **Scenario Support:**
    - Includes three parameter configuration buttons inspired by real-world applications:
-     - **5G Beamforming.**
-     - **Medical Ultrasound.**
-     - **Focused Energy Tumor Ablation.**
+     - **5G Beamforming:** Simulates high-frequency operation with a linear array for cellular networks in Recieveing mode.
+     - **Medical Ultrasound:** Uses a curved array to focus sound waves for precise imaging in Transmitting mode.
+     - **Focused Energy Tumor Ablation:**:Demonstrates focused energy delivery using multi-array configurations in Transmitting mode.
 
 4. **Custom Array Layouts:**
    - Supports both **linear** and **curved arrays** with adjustable curvature.
@@ -34,6 +34,8 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
    - Add multiple phased array units with independent configurations.
 
 ---
+## Demo 📸
+[Demo Video](https://github.com/yourusername/yourrepository/blob/main/assets/demo.mp4)
 
 ## System Requirements ⚙️
 
@@ -85,19 +87,6 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## Example Scenarios 🎓
-
-### 1. **5G Beamforming**
-   - Simulates high-frequency operation with a linear array for cellular networks.
-
-### 2. **Medical Ultrasound**
-   - Uses a curved array to focus sound waves for precise imaging.
-
-### 3. **Tumor Ablation**
-   - Demonstrates focused energy delivery using multi-array configurations.
-
----
-
 ## File Structure
 
 ```
@@ -113,11 +102,12 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## Demo 📸
-[Demo Video](https://github.com/yourusername/yourrepository/blob/main/assets/demo.mp4)
+
 
 ## Acknowledgments :
-- This project was supervised by Dr. Tamer Basha & Eng. Omar, who provided invaluable guidance and expertise throughout its development as a part of the Digital Signal Processing course at Cairo University Faculty of Engineering.
+This project was supervised by Dr. Tamer Basha & Eng. Omar, who provided invaluable guidance and expertise throughout its development as a part of the Digital Signal Processing course at Cairo University Faculty of Engineering.
+![Cairo University Logo](./faculty_logo.png)
+
 
 ---
 
