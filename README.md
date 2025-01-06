@@ -1,14 +1,20 @@
-# 2D Beamforming Simulator
+# 2D Beamforming Simulator 🎯
 
 This **2D Beamforming Simulator** is an interactive tool designed to visualize the principles of beamforming, including **constructive and destructive interference**. It simulates real-world scenarios using configurable parameters such as delays, phase shifts, and array geometry, making it ideal for learning, research, and development in applications like **5G communications**, **ultrasound imaging**, and **tumor ablation**.
 
 ---
 
-## Key Features
+## Features 🛠️
 
-1. **Interactive Visualization:**
-   - Visualize **beamforming effects** in real time.
-   - Includes synchronized viewers for interference patterns and beam profiles.
+1. **Interactive Parameter Customization:**
+   - Adjust system parameters in real time:
+      - Number of transmitters/receivers.
+      - Applied delays or phase shifts.
+      - Operating frequencies and their values.
+
+   - Configure the geometry of the phased array:
+     - Linear or Curved layouts.
+     - Adjustable curvature parameters.
 
 2. **Parameter Control:**
    - Adjust:
