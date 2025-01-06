@@ -7,24 +7,22 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 ## Features 🛠️
 
 1. **Interactive Parameter Customization:**
-   - Adjust system parameters in real time:
+   - Adjust system parameters in real time :
       - Number of transmitters/receivers.
       - Applied delays or phase shifts.
       - Operating frequencies and their values.
 
-   - Configure the geometry of the phased array:
+   - Configure the geometry of the phased array :
      - Linear or Curved layouts.
      - Adjustable curvature parameters.
-
-2. **Parameter Control:**
-   - Adjust:
-     - Number of antennas/transceivers.
-     - Frequencies and delays/phase shifts.
-     - Array geometry (linear or curved).
    - Dynamically steer the beam direction.
 
+2. **Visualization:**
+   - View the constructive/destructive interference map.
+   - Analyze the beam profile in synchronized viewers.
+
 3. **Scenario Support:**
-   - Preloaded configurations for:
+   - Includes three parameter configuration buttons inspired by real-world applications:
      - **5G Beamforming.**
      - **Medical Ultrasound.**
      - **Focused Energy Tumor Ablation.**
@@ -37,7 +35,7 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## System Requirements
+## System Requirements ⚙️
 
 - Python 3.7 or higher.
 - Libraries:
@@ -47,11 +45,12 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## Installation
+
+## Installation 📥
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/2D-Beamforming-Simulator.git
+   git clone https://github.com/habibaalaa123/Beamforming_Simulator.git
    cd 2D-Beamforming-Simulator
    ```
 
@@ -67,7 +66,7 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## How to Use
+## How to Use 🚀
 
 ### GUI Overview
 
@@ -86,7 +85,7 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## Example Scenarios
+## Example Scenarios 🎓
 
 ### 1. **5G Beamforming**
    - Simulates high-frequency operation with a linear array for cellular networks.
@@ -114,21 +113,39 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 
-## Screenshots
+## Demo 📸
+[Demo Video](https://github.com/yourusername/yourrepository/blob/main/assets/demo.mp4)
 
-### Beamforming Interference Map
-![Beamforming Map](path/to/interference_map.png)
 
-### Beam Profile Visualization
-![Beam Profile](path/to/beam_profile.png)
 
 ---
 
-## Future Enhancements
+## Team Members
+<div align="center">
+  <table style="border-collapse: collapse; border: none;">
+    <tr>
+      <td align="center" style="border: none;">
+        <img src="https://github.com/user-attachments/assets/e8713727-6257-4c16-b9bd-8f6cb509cf1c" alt="Enjy Ashraf" width="150" height="150"><br>
+        <a href="https://github.com/enjyashraf18"><b>Enjy Ashraf</b></a>
+      </td>
+      <td align="center" style="border: none;">
+        <img src="https://github.com/user-attachments/assets/5de3e403-7fce-4000-95d2-e9f07e0d78cf" alt="Nada Khaled" width="150" height="150"><br>
+        <a href="https://github.com/NadaKhaled157"><b>Nada Khaled</b></a>
+      </td>
+      <td align="center" style="border: none;">
+        <img src="https://github.com/user-attachments/assets/4b1f5180-2250-49ae-869f-4d00fb89447a" alt="Habiba Alaa" width="150" height="150"><br>
+        <a href="https://github.com/habibaalaa123"><b>Habiba Alaa</b></a>
+      </td>
+      <td align="center" style="border: none;">
+        <img src="https://github.com/user-attachments/assets/567fd220-acc8-4094-bfe0-5939a0048ca9" alt="Shahd Ahmed" width="150" height="150"><br>
+        <a href="https://github.com/Shahd-A-Mahmoud"><b>Shahd Ahmed</b></a>
+      </td>
+    </tr>
+  </table>
+</div>
 
-- Add support for **3D phased array visualization**.
-- Include more preconfigured scenarios (e.g., radar, sonar).
-- Implement optimization algorithms for automatic beam steering.
+
+
 
 ---
 
