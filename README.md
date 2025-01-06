@@ -116,7 +116,8 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 ## Demo 📸
 [Demo Video](https://github.com/yourusername/yourrepository/blob/main/assets/demo.mp4)
 
-
+## Acknowledgments :
+- This project was supervised by Dr. Tamer Basha & Eng. Omar, who provided invaluable guidance and expertise throughout its development as a part of the Digital Signal Processing course at Cairo University Faculty of Engineering.
 
 ---
 
