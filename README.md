@@ -35,7 +35,7 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 ## Demo 📸
-<img src="https://github.com/habibaalaa123/Beamforming_Simulator/main/BeamForming.gif" width="800" alt="Demo GIF">
+<img src="https://raw.githubusercontent.com/habibaalaa123/Beamforming_Simulator/main/BeamForming.gif" width="800" alt="Demo GIF">
 
 ## System Requirements ⚙️
 
