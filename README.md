@@ -35,7 +35,7 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 ## Demo 📸
-<img src="https://github.com/habibaalaa123/Beamforming_Simulator/blob/main/demo.gif" width="800" alt="Demo GIF">
+<img src="https://github.com/habibaalaa123/Beamforming_Simulator/main/demo.gif" width="800" alt="Demo GIF">
 
 ## System Requirements ⚙️
 
@@ -91,11 +91,8 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ```
 2D-Beamforming-Simulator/
-├── main.py             # Entry point of the simulator
 ├── beamforming.py      # Core beamforming computations
-├── utils.py            # Utility functions for visualization and math
-├── scenarios/          # Predefined configuration files
-├── data/               # Sample data for testing
+├── BeamForming.ui      # ui viusalization 
 ├── requirements.txt    # List of dependencies
 └── README.md           # Project documentation
 ```
