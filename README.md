@@ -35,7 +35,9 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 
 ---
 ## Demo 📸
-https://raw.githubusercontent.com/habibaalaa123/Beamforming_Simulator/main/BeamForming_updtated
+<video src="https://raw.githubusercontent.com/habibaalaa123/Beamforming_Simulator/main/BeamForming_updtated.mp4" width="800" controls>
+</video>
+
 ## System Requirements ⚙️
 
 - Python 3.7 or higher.
