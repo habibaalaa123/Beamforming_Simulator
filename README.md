@@ -39,6 +39,8 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
 - Modified the array curvature for focused beamforming.
 - Applied phase shifts to illustrate constructive interference in a specific direction.
   
+https://github.com/user-attachments/assets/ea4bb20d-fa23-4145-8d0a-204866422e23
+  
 ### Receiver Configuration: 
 - Modified the number of receivers to improve beamforming accuracy.
 - Adjusted the operating frequency to showcase adaptability across different communication bands.
@@ -120,7 +122,7 @@ https://github.com/user-attachments/assets/b434b0ba-ee84-46a7-812e-330064009ebe
 
 ## Acknowledgments :
 This project was supervised by Dr. Tamer Basha & Eng. Omar, who provided invaluable guidance and expertise throughout its development as a part of the Digital Signal Processing course at Cairo University Faculty of Engineering.
-
+![Image](https://github.com/user-attachments/assets/eb90d269-756b-4408-8a91-eee8a60b3a32)
 
 
 ---
