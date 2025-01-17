@@ -122,7 +122,7 @@ https://github.com/user-attachments/assets/b434b0ba-ee84-46a7-812e-330064009ebe
 
 ## Acknowledgments :
 This project was supervised by Dr. Tamer Basha & Eng. Omar, who provided invaluable guidance and expertise throughout its development as a part of the Digital Signal Processing course at Cairo University Faculty of Engineering.
-![Image](https://github.com/user-attachments/assets/eb90d269-756b-4408-8a91-eee8a60b3a32)
+
 
 
 ---
