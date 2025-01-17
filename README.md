@@ -34,8 +34,25 @@ This **2D Beamforming Simulator** is an interactive tool designed to visualize t
    - Add multiple phased array units with independent configurations.
 
 ---
-## Demo 📸
-https://github.com/user-attachments/assets/bcd8f3ce-a49d-4b2f-bc31-2e2639af8750
+### Transmitter Configuration:
+- Increased the number of transmitters to demonstrate beam direction control.
+- Modified the array curvature for focused beamforming.
+- Applied phase shifts to illustrate constructive interference in a specific direction.
+  
+### Receiver Configuration: 
+- Modified the number of receivers to improve beamforming accuracy.
+- Adjusted the operating frequency to showcase adaptability across different communication bands.
+- Explored delay configurations to highlight destructive interference handling.
+  
+https://github.com/user-attachments/assets/686fe861-616d-470b-a4ed-4b2495408dbd
+
+### Scenario Customization:
+- Selected the 5G Beamforming scenario with a linear array for cellular network simulation.
+- Switched to the Medical Ultrasound scenario to demonstrate focused imaging with a curved array.
+- Configured the Focused Energy Tumor Ablation scenario to showcase precision energy delivery.
+  
+https://github.com/user-attachments/assets/b434b0ba-ee84-46a7-812e-330064009ebe
+  
 
 ## System Requirements ⚙️
 
